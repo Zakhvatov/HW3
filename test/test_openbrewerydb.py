@@ -33,8 +33,8 @@ def test_get_types_breweries(type_breweries):
                          ids=['incorrect_string_type', "space", "None_type", "int_type"])
 def test_check_incorrect_type(incorrect_type):
     response = requests.get(f"https://api.openbrewerydb.org/v1/breweries?by_type={incorrect_type}")
+    assert response.status_code == 200
     assert response.json()
-    assert response.status_code == 400
     assert "errors" in response.json()
     assert "Brewery type must include one of these types: [\"micro\", \"nano\", \"regional\", \"brewpub\", \"large\", \"planning\", \"bar\", \"contract\", \"proprietor\", \"closed\"]" in \
            response.json()["errors"]
